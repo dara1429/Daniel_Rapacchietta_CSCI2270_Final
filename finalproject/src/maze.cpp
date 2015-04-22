@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <queue>
+#include <climits>
 using namespace std;
 maze::maze()
 {
@@ -187,5 +188,130 @@ void maze::mazeErrorCheckBFT(string startingRoom, int id)
 
 }
 
+void maze::findSafestPath()
+{
+    //Holds path to shortest route.
+    vector<vertex> solved;
 
+    //Used for calculating average risk.
+    int counter = -1;
 
+    vertex *room1;
+    vertex *room2;
+    for(int i = 0; i < vertices.size(); i++)
+    {
+        if(vertices[i].name == "Entrance" or vertices[i].name == "entrance")
+        {
+            room1 = &vertices[i];
+            vertices[i].risk = 0;
+            //Adds origin to solved.
+            solved.push_back(vertices[i]);
+        }
+    }
+    for(int i = 0; i < vertices.size(); i++)
+    {
+        if(vertices[i].name == "Exit" or vertices[i].name == "exit")
+        {
+            room2 = &vertices[i];
+        }
+    }
+
+    //Previous room
+    int previousSize = vertices.size();
+    int previous[previousSize];
+    //Keeps track of current distance and finds the minimum amount of risk from one room to another.
+    int minDistance = 0;
+    int distance = 0;
+    vertex *minimumRoom;
+    //Initializing all rooms.
+    for(int i = 0; i < vertices.size(); i++)
+    {
+        vertices[i].visited = false;
+        vertices[i].risk = INT_MAX;
+        previous[vertices[i].ID] = -1;
+    }
+
+    //Initialize first room so we don't check it.
+    room1->visited = true;
+    room1->risk = 0;
+
+    //While loop to find the minimum weighted(riskiest) path.
+    //Distance = risk.
+    while(room2->visited == false)
+    {
+        minDistance = INT_MAX;
+        for(int i = 0; i < solved.size(); i++)
+        {
+            for(int j = 0; j < solved[i].adj.size(); j++)
+            {
+                if(solved[i].adj[j].v->visited == false)
+                {
+                    distance = (solved[i].risk + solved[i].adj[j].risk);
+                    if(distance < minDistance)
+                    {
+                        minDistance = distance;
+                        minimumRoom = solved[i].adj[j].v;
+                        solved[i].adj[j].v->risk = minDistance;
+                        previous[minimumRoom->ID] = solved[i].ID;
+                    }
+                }
+            }
+
+        }
+        //Update Solved.
+        minimumRoom->visited = true;
+        solved.push_back(*minimumRoom);
+        //Checks to see if solved room was the exit.
+        for(int k = 0; k < vertices.size(); k++)
+        {
+            if(room2->name == minimumRoom->name)
+            {
+                room2->visited = true;
+            }
+            if(minimumRoom->name == vertices[k].name)
+            {
+                vertices[k].visited = true;
+            }
+        }
+    }
+    //Traverses the previous pointers and puts them into a vector for printing.
+    distance = minDistance;
+    vector<vertex> printPath;
+    int currentID = minimumRoom->ID;
+    while(currentID != -1)
+    {
+        for(int i = 0; i < vertices.size(); i++)
+        {
+            if(currentID == vertices[i].ID)
+            {
+                printPath.push_back(vertices[i]);
+                counter++;
+            }
+
+        }
+        currentID = previous[currentID];
+    }
+    //Prints the safest path and average risk of traversing that path.
+    double avgrisk = distance / counter;
+    int i = 0;
+    cout << "The safest path in the maze is :" << endl;
+    while(!printPath.empty())
+    {
+        if(i != counter)
+        {cout << printPath.back().name << "->";}
+        else
+        {
+            cout << printPath.back().name;
+        }
+        printPath.pop_back();
+        i++;
+    }
+    cout << endl;
+    cout << "The average change of falling into a trap while taking this path is : " << avgrisk << "%" << endl;
+    cout << endl;
+}
+
+void maze::findShortestPath()
+{
+
+}

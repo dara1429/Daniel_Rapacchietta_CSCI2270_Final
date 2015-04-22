@@ -18,7 +18,7 @@ struct vertex{
     int mazeCheck = -1;
     //ID number for each room.
     int ID = -1;
-    //The % chance of falling into a trap going from room to room (weight).
+    //Used for calculating safest path.
     int risk = 0;
 };
 
@@ -33,8 +33,8 @@ class maze
         void displayEdges();
         void mazeErrorCheck();
         void mazeErrorCheckBFT(std::string startingCity, int id);
+        void findSafestPath();
         void findShortestPath();
-        void findShortestDistance();
     protected:
     private:
         //Flag to determine if the maze was created successfully.
