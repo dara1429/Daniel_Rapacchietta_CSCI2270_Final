@@ -10,6 +10,7 @@ struct adjVertex{
     int risk;
 };
 
+
 struct vertex{
     std::string name;
     std::vector<adjVertex> adj;
@@ -20,6 +21,8 @@ struct vertex{
     int ID = -1;
     //Used for calculating safest path.
     int risk = 0;
+    //Used for calculating shortest path.
+    int distance = 0;
 };
 
 class maze

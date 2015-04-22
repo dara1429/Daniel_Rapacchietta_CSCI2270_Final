@@ -195,9 +195,11 @@ void maze::findSafestPath()
 
     //Used for calculating average risk.
     int counter = -1;
-
+    //Entrance
     vertex *room1;
+    //Exit
     vertex *room2;
+
     for(int i = 0; i < vertices.size(); i++)
     {
         if(vertices[i].name == "Entrance" or vertices[i].name == "entrance")
@@ -313,5 +315,105 @@ void maze::findSafestPath()
 
 void maze::findShortestPath()
 {
+    //Entrance
+    vertex *room1;
+    //Exit
+    vertex *room2;
+    for(int i = 0; i < vertices.size(); i++)
+    {
+        if(vertices[i].name == "entrance" or vertices[i].name == "Entrance")
+        {
+            room1 = &vertices[i];
+        }
+    }
+    for(int i = 0; i < vertices.size(); i++)
+    {
+        if(vertices[i].name == "exit" or vertices[i].name == "Exit")
+        {
+            room2 = &vertices[i];
+        }
+    }
 
+    //Initialize cities
+    for(int i = 0; i < vertices.size(); i++)
+    {
+        vertices[i].visited = false;
+    }
+
+    //Mark origin as visited.
+    room1->visited = true;
+    room1->distance = 0;
+
+    //Initialize empty queue and blank vertex
+    queue<vertex*> q;
+    vertex u;
+
+    //Initialize path/minimum distance/pointer to previous node
+    int minDistance = INT_MAX;
+    vector<vertex> path;
+    int previousSize = vertices.size();
+    int previous[previousSize];
+    previous[room1->ID] = -1;
+
+    //Add Origin to q.
+    q.push(room1);
+
+    //While the queue is not empty find the shortest path from room1->room2
+    while(!q.empty())
+    {
+        u = *q.front();
+        q.pop();
+        for(int i = 0; i < u.adj.size(); i++)
+        {
+            if(u.adj[i].v->visited == false)
+            {
+                u.adj[i].v->distance = (u.distance + 1); //u is the parent.
+                if(u.adj[i].v->name == room2->name)
+                {
+                    if(u.adj[i].v->distance < minDistance)
+                    {
+                        previous[u.adj[i].v->ID] = u.ID;
+                        minDistance = u.adj[i].v->distance;
+                    }
+                }
+                else
+                {
+                    previous[u.adj[i].v->ID] = u.ID;
+                    u.adj[i].v->visited = true;
+                    q.push(u.adj[i].v);
+                }
+            }
+        }
+    }
+    int counter = -1;
+    int currentID = room2->ID;
+    while(currentID != -1)
+    {
+        for(int i = 0; i < vertices.size(); i++)
+        {
+            if(currentID == vertices[i].ID)
+            {
+                path.push_back(vertices[i]);
+                counter++;
+            }
+
+        }
+        currentID = previous[currentID];
+    }
+    //Prints the shortest path.
+    int i = 0;
+    while(!path.empty())
+    {
+        if(i != counter)
+        {cout << path.back().name << "->";}
+        else
+        {
+            cout << path.back().name;
+        }
+        path.pop_back();
+        i++;
+    }
+    cout << endl;
+    cout << "The length of the shortest path in your maze is : " << minDistance << endl;
+    cout << endl;
 }
