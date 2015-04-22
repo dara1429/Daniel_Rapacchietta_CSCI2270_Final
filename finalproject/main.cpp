@@ -15,8 +15,10 @@ int main(int argc, char* argv[])
 
     //Creates the vector to hold room names.
     vector<string> rooms;
-    //Counter to initialize the size of the 2D array.
+    //Counter to initialize the size of the 2D vector.
     int roomsCounter = 0;
+    //Error checking bool.
+    bool error;
     //Grabs the first line of the text file (room names) and adds them into a vector.
     if(infile.good())
     {
@@ -60,7 +62,7 @@ int main(int argc, char* argv[])
                 while(getline(ss,line2, ','))
                 {
                     //This skips the city name in each line of the file so we only
-                    //Grab the weight (edges).
+                    //Grab the weight (risk).
                     if(stringstream(line2) >> risk)
                     {
                         connections.at(one).at(two) = risk;
@@ -71,11 +73,16 @@ int main(int argc, char* argv[])
             }
             //Initializes the maze.
             maze m;
-            m.createMaze(rooms,connections);
+            error = m.createMaze(rooms,connections);
     }
-
     //Closes file.
     infile.close();
+
+    //If error is true. Quit program.
+    if(error == true)
+    {
+        return 0;
+    }
 
     //Menu
     int command = 0;

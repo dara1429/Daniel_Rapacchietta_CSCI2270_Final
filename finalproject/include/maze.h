@@ -27,12 +27,12 @@ class maze
     public:
         maze();
         ~maze();
-        void createMaze(std::vector<std::string> rooms, std::vector< std::vector<int> > connections);
+        bool createMaze(std::vector<std::string> rooms, std::vector< std::vector<int> > connections);
         void addEdge(std::string v1, std::string v2, int weight);
         void addVertex(std::string name);
         void displayEdges();
-        void findDistricts();
-        void findDistrictsBFT(std::string startingCity, int id);
+        void mazeErrorCheck();
+        void mazeErrorCheckBFT(std::string startingCity, int id);
         void findShortestPath();
         void findShortestDistance();
     protected:
