@@ -111,11 +111,11 @@ int main(int argc, char* argv[])
         }
         if(command == 3)
         {
-            //addroom
+            m.addRoom();
         }
         if(command == 4)
         {
-            //adddoor/key
+            m.addDoorAndKey();
         }
         if(command == 5)
         {

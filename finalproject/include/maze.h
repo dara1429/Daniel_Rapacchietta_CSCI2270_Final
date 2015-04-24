@@ -23,6 +23,10 @@ struct vertex{
     int risk = 0;
     //Used for calculating shortest path.
     int distance = 0;
+    //Locked door. Needs a key to open if true.
+    bool door = false;
+    //Key located in this room
+    bool key = false;
 };
 
 class maze
@@ -38,6 +42,8 @@ class maze
         void mazeErrorCheckBFT(std::string startingCity, int id);
         void findSafestPath();
         void findShortestPath();
+        void addDoorAndKey();
+        void addRoom();
     protected:
     private:
         //Flag to determine if the maze was created successfully.

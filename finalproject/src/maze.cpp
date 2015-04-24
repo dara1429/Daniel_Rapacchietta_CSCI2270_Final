@@ -417,3 +417,165 @@ void maze::findShortestPath()
     cout << "The length of the shortest path in your maze is : " << minDistance << endl;
     cout << endl;
 }
+
+void maze::addDoorAndKey()
+{
+    string room;
+    bool roomFound = false;
+    bool flag1 = false;
+    bool flag2 = false;
+    cout << "Enter the name of the room you want to put a door in :" << endl;
+    getline(cin,room);
+    while(roomFound == false)
+    {
+        flag1 = false;
+        flag1 = false;
+        getline(cin,room);
+        for(int i = 0; i < vertices.size(); i++)
+        {
+            if(room == vertices[i].name)
+            {
+                if(vertices[i].door == false and vertices[i].key == false)
+                {
+                    roomFound = true;
+                    vertices[i].door = true;
+                    cout << room << " is now locked" << endl;
+                }
+                else if(vertices[i].door == true)
+                {
+                    cout << room << " is already locked. Enter another room" << endl;
+                    flag1 = true;
+                }
+                else
+                {
+                    cout << room << " has a key in it. Enter another room" << endl;
+                    flag2 = true;
+                }
+            }
+        }
+        if(roomFound == false and flag1 == false and flag2 == false)
+        {
+            cout << "Room not found! Please try again" << endl;
+        }
+    }
+    roomFound = false;
+    cout << "Now enter the name of the room you want to put a key in :" << endl;
+    while(roomFound == false)
+    {
+        flag1 = false;
+        flag2 = false;
+        getline(cin,room);
+        for(int i = 0; i < vertices.size(); i++)
+        {
+            if(room == vertices[i].name)
+            {
+                if(vertices[i].door == false and vertices[i].key == false)
+                {
+                    roomFound = true;
+                    vertices[i].key = true;
+                    cout << room << " now has a key in it" << endl;
+                }
+                else if(vertices[i].door == true)
+                {
+                    cout << room << " has a door already. Enter a room thats not locked" << endl;
+                    flag1 = true;
+                }
+                else
+                {
+                    cout << room << " has a key already. Enter a room that does not have a key" << endl;
+                    flag2 = true;
+                }
+            }
+        }
+        if(roomFound == false and flag1 == false and flag2 == false)
+        {
+            cout << "Room not found! Please try again" << endl;
+        }
+    }
+}
+
+void maze::addRoom()
+{
+    string room1;
+    string room2;
+    int risk;
+    bool roomOk = false;
+    bool flag1 = false;
+    bool flag2 = false;
+    cout << "Please enter the name of the room you want to add :" << endl;
+    getline(cin,room1);
+    while(roomOk == false)
+    {
+        flag1 = false;
+        flag2 =false;
+        getline(cin,room1);
+        for(int i = 0; i < vertices.size(); i++)
+        {
+            if(vertices[i].name == room1)
+            {
+                cout << "This room already exists! Please try again." << endl;
+                flag1 = true;
+            }
+            else if(room1 == "exit" or room1 == "Exit" or room1 == "entrance" or room1 == "Entrance")
+            {
+                cout << "You cannot add another exit or entrance to your maze. Please try again." << endl;
+                flag2 = true;
+            }
+        }
+        if(flag1 == false and flag2 == false)
+        {
+            roomOk = true;
+        }
+    }
+    string doneConnecting = "y";
+    while(doneConnecting == "y")
+    {
+        cout << "Please enter the name of a room you want to connect it to :" << endl;
+        roomOk = false;
+        flag1 = false;
+        flag2 = false;
+        while(roomOk == false)
+        {
+            flag1 = false;
+            flag2 = false;
+            getline(cin,room2);
+            for(int i = 0; i < vertices.size(); i++)
+            {
+                if(room1 == room2)
+                {
+                    flag1 = true;
+                }
+                else if(vertices[i].name == room2)
+                {
+                    flag2 = true;
+                }
+            }
+            if(flag1 == true)
+            {
+                cout << "You cannot connect the room to itself. Please try again" << endl;
+            }
+            else if(flag1 == false and flag2 == true)
+            {
+                roomOk = true;
+            }
+            else
+            {
+                cout << "Room not found. Please try again" << endl;
+            }
+        }
+        cout << "Enter the chance of falling into a trap between these two rooms (0-50) : " << endl;
+        cin >> risk;
+        while(risk > 50 or risk < 0)
+        {
+            cout << "You entered an invalid value (Range is 0 to 50). Please try again." << endl;
+            cin >> risk;
+        }
+        cout << "Adding " << room1 << " to " << room2 << " with a risk of " << risk << endl;
+        addVertex(room1);
+        addEdge(room1,room2,risk);
+        cout << "Add another connection? (y or n)" << endl;
+        getline(cin,doneConnecting);
+        getline(cin,doneConnecting);
+    }
+
+}
