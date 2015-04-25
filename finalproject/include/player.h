@@ -1,25 +1,24 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-
-
+#include <vector>
+#include "maze.h"
 class player
 {
     public:
         player();
         virtual ~player();
-        void gameStart();
+        void gameStart(std::vector<vertex> maze);
+        void gameShowChoices();
         void setDifficulty();
         int getLives();
         int getKeys();
-        int getPosition();
         void setLives(int numLives);
         void setKeys(int numKeys);
-        void setPosition(int ID);
     protected:
     private:
         int keys = 0;
         int lives = 3;
-        int position = 0;
+        vertex *currentRoom;
 };
 
 #endif // PLAYER_H

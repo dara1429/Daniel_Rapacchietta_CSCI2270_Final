@@ -45,6 +45,7 @@ class maze
         void addDoorAndKey();
         void addRoom();
         void printRooms();
+        std::vector<vertex> getVertices();
     protected:
     private:
         //Flag to determine if the maze was created successfully.

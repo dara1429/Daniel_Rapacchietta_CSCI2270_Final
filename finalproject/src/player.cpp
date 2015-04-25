@@ -1,4 +1,5 @@
 #include "player.h"
+#include "maze.h"
 #include <string>
 #include <iostream>
 using namespace std;
@@ -12,11 +13,51 @@ player::~player()
     //Destructor
 }
 
-void player::gameStart()
+void player::gameStart(vector<vertex> maze)
 {
+    //Holds the ID of the exit.
+    int winGame;
+    //Holds player command.
+    int command;
+    //Holds the number rooms (options) to go to.
+    int choices = 0;
+    //Sets player in the entrance room.
+    for(int i = 0; i < maze.size(); i++)
+    {
+        if(maze[i].name == "entrance" or maze[i].name == "Entrance")
+        {
+            currentRoom = &maze[i];
+        }
+        if(maze[i].name == "exit" or maze[i].name == "Exit")
+        {
+            winGame = maze[i].ID;
+        }
+    }
 
+    //Game loop for traversing through the maze.
+    cout << "You have fallen into a maze. Try and find your way out. Good luck!" << endl;
+    while(currentRoom->ID != winGame)
+    {
+        command = 0;
+        while(command == 0 or command > choices)
+        {
+            cout << "////GAME////" << endl;
+            cout << "Lives remaining : " << lives << endl;
+            cout << "Keys in inventory : " << keys << endl;
+            cout << "Choose a path" << endl;
+            gameShowChoices();
+            cin >> command;
+        }
+    }
 }
 
+void player::gameShowChoices()
+{
+    for(int i = 0; i < currentRoom->adj.size(); i++)
+    {
+        //WIP.
+    }
+}
 void player::setDifficulty()
 {
     int command = 0;
@@ -64,11 +105,6 @@ int player::getKeys()
     return keys;
 }
 
-int player::getPosition()
-{
-    return position;
-}
-
 void player::setLives(int numLives)
 {
     lives = numLives;
@@ -79,7 +115,4 @@ void player::setKeys(int numKeys)
     keys = numKeys;
 }
 
-void player::setPosition(int ID)
-{
 
-}

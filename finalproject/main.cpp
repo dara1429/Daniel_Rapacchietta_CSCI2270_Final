@@ -108,7 +108,9 @@ int main(int argc, char* argv[])
         cin >> command;
         if(command == 1)
         {
-            //game.
+            vector<vertex> maze;
+            maze = m.getVertices();
+            p.gameStart(maze);
         }
         if(command == 2)
         {

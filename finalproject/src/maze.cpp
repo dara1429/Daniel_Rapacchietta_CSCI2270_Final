@@ -601,3 +601,8 @@ void maze::printRooms()
             }
         }
 }
+
+vector<vertex> maze::getVertices()
+{
+    return vertices;
+}
