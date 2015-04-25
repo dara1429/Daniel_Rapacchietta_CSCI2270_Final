@@ -4,6 +4,7 @@
 #include <string>
 #include <sstream>
 #include "maze.h"
+#include "player.h"
 using namespace std;
 
 int main(int argc, char* argv[])
@@ -84,7 +85,9 @@ int main(int argc, char* argv[])
     {
         return 0;
     }
-    cout << "Your maze is valid!" << endl;
+    //Initializes the player.
+    player p;
+
     cout << "Welcome!" << endl;
     //Menu
     int command = 0;
@@ -109,7 +112,7 @@ int main(int argc, char* argv[])
         }
         if(command == 2)
         {
-            //difficulty
+            p.setDifficulty();
         }
         if(command == 3)
         {

@@ -36,8 +36,10 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="include/maze.h" />
+		<Unit filename="include/player.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/maze.cpp" />
+		<Unit filename="src/player.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
