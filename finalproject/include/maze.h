@@ -35,15 +35,16 @@ class maze
         maze();
         ~maze();
         bool createMaze(std::vector<std::string> rooms, std::vector< std::vector<int> > connections);
-        void addEdge(std::string v1, std::string v2, int weight);
+        void addEdge(std::string room1, std::string room2, int risk, int option);
         void addVertex(std::string name);
         void displayEdges();
         void mazeErrorCheck();
-        void mazeErrorCheckBFT(std::string startingCity, int id);
+        void mazeErrorCheckBFT(std::string startingRoom, int id);
         void findSafestPath();
         void findShortestPath();
         void addDoorAndKey();
         void addRoom();
+        void printRooms();
     protected:
     private:
         //Flag to determine if the maze was created successfully.

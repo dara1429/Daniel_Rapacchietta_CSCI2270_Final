@@ -20,6 +20,7 @@ bool maze::createMaze(vector<string> rooms, vector< vector<int> > connections)
     string connectedRoom;
     int counter = 0;
     int risk = 0;
+    int option = 0;
 
     //Creates Vertexes
     for(int i = 0; i < rooms.size(); i++)
@@ -37,7 +38,7 @@ bool maze::createMaze(vector<string> rooms, vector< vector<int> > connections)
             risk = connections[counter][i];
             if(risk != -1 and risk != -2)
             {
-                addEdge(startingRoom,connectedRoom,risk);
+                addEdge(startingRoom,connectedRoom,risk,option);
             }
         }
         counter++;
@@ -94,41 +95,43 @@ bool maze::createMaze(vector<string> rooms, vector< vector<int> > connections)
     return error;
 }
 
-void maze::addVertex(string n)
+void maze::addVertex(string room)
 {
     bool found = false;
     for(int i = 0; i < vertices.size(); i++){
-        if(vertices[i].name == n){
+        if(vertices[i].name == room){
             found = true;
-            cout<<vertices[i].name<<" found."<<endl;
+            cout<<vertices[i].name<<" already in maze. Continuing to add connection..."<<endl;
         }
     }
     if(found == false){
         vertex v;
-        v.name = n;
+        v.name = room;
         vertices.push_back(v);
 
     }
 }
 
-void maze::addEdge(string v1, string v2, int risk)
+void maze::addEdge(string room1, string room2, int risk, int option)
 {
 
     for(int i = 0; i < vertices.size(); i++){
-        if(vertices[i].name == v1){
+        if(vertices[i].name == room1){
             for(int j = 0; j < vertices.size(); j++){
-                if(vertices[j].name == v2 && i != j){
+                if(vertices[j].name == room2 && i != j){
                     adjVertex av;
                     av.v = &vertices[j];
                     av.risk = risk;
                     vertices[i].adj.push_back(av);
-                    //another vertex for edge in other direction.
-                    /*
-                    adjVertex av2;
-                    av2.v = &vertices[i];
-                    av2.weight = weight;
-                    vertices[j].adj.push_back(av2);
-                    */
+                    //If user uses the add room option in the menu.
+                    if(option == 1)
+                    {
+                        //another vertex for edge in other direction.
+                        adjVertex av2;
+                        av2.v = &vertices[i];
+                        av2.risk = risk;
+                        vertices[j].adj.push_back(av2);
+                    }
                 }
             }
         }
@@ -502,7 +505,7 @@ void maze::addRoom()
     bool roomOk = false;
     bool flag1 = false;
     bool flag2 = false;
-    cout << "Please enter the name of the room you want to add :" << endl;
+    cout << "Please enter the name of the room you want to add to the maze :" << endl;
     getline(cin,room1);
     while(roomOk == false)
     {
@@ -570,12 +573,31 @@ void maze::addRoom()
             cout << "You entered an invalid value (Range is 0 to 50). Please try again." << endl;
             cin >> risk;
         }
-        cout << "Adding " << room1 << " to " << room2 << " with a risk of " << risk << endl;
+        //Sends variables to functions to add to maze.
         addVertex(room1);
-        addEdge(room1,room2,risk);
+        int newID = vertices.size()+1;
+        for(int i = 0; i < vertices.size(); i++)
+        {
+            if(vertices[i].name == room1)
+            {
+                vertices[i].ID = newID;
+            }
+        }
+        addEdge(room1,room2,risk,1);
         cout << "Add another connection? (y or n)" << endl;
         getline(cin,doneConnecting);
         getline(cin,doneConnecting);
     }
 
+}
+
+void maze::printRooms()
+{
+    for(int i = 0; i < vertices.size(); i++)
+        {
+            for(int j = 0; j < vertices[i].adj.size(); j++)
+            {
+                cout << vertices[i].name << " : " << vertices[i].adj[j].v->name << " : " << vertices[i].adj[j].risk << endl;
+            }
+        }
 }

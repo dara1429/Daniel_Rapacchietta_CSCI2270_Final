@@ -88,8 +88,9 @@ int main(int argc, char* argv[])
     cout << "Welcome!" << endl;
     //Menu
     int command = 0;
-    while(command != 7)
+    while(command != 8)
     {
+        cout << endl;
         cout << "//////Game Menu//////" << endl;
         cout << "1. Play Game" << endl;
         cout << "2. Choose difficulty" << endl;
@@ -98,7 +99,8 @@ int main(int argc, char* argv[])
         cout << "4. Add door/key" << endl;
         cout << "5. Find shortest path" << endl;
         cout << "6. Find path with the least risk" << endl;
-        cout << "7. Quit" << endl;
+        cout << "7. Print entire maze" << endl;
+        cout << "8. Quit" << endl;
 
         cin >> command;
         if(command == 1)
@@ -124,6 +126,10 @@ int main(int argc, char* argv[])
         if(command == 6)
         {
             m.findSafestPath();
+        }
+        if(command == 7)
+        {
+            m.printRooms();
         }
     }
     cout << "Thanks for playing!" << endl;
