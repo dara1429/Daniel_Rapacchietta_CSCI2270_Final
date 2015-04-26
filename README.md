@@ -7,21 +7,34 @@ This program will offer users to edit and play a labyrinth game. The program wil
 ---How to Run---
 
 A "maze.txt" file is required to run the program (as argument 1). The structure is similar to the graph assignment.
+
 1. The first line of the maze.txt file must have "rooms" followed by comma separated room names.
-ex: rooms,entrance,hallway,balcony...etc
+
 2. All lines after the first should contain the names of the rooms in the first line (in the same order),
 followed by comma separated integer values between 0 and 50 for connected rooms.
-ex: entrance,-2,40,30,20...etc
+
+
 3. Any two rooms that are not connected must be represented by a -1 in the maze.txt file.
+
+
 4. There must be a -2 value when putting in the risk value for the same two rooms.
+
+5. There must be a room called "Entrance" and "Exit" (can be lowercase). These are used for the starting room for the player and the destination room to win the game. You should entrance as the first room and exit as the last when making the text file but it is not necessary.
+
+Here is a small example:
+
+rooms,entrance,room1,room2,exit
+entrance,-2,10,-1,-1
+room1,10,-2,20,-1
+room2,-1,20,-2,50
+exit,-1,-1,50,-2
 
 Restrictions:
 - In the maze game the risk values represent the percentage chance of falling into a trap. This chance can only be 
 between 0% (safe) and 50% (very dangerous).
 
 An example maze.txt file is provided in the repo. Here is the graph of that file.
-/////
-
+![alt tag](https://raw.github.com/dara1429/Rapacchietta_CSCI2270_FinalProject/master/finalproject/maze.jpg)
 
 ---Dependencies---
 
