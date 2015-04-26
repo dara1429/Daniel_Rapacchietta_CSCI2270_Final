@@ -24,9 +24,13 @@ followed by comma separated integer values between 0 and 50 for connected rooms.
 Here is a small example:
 
 rooms,entrance,room1,room2,exit
+
 entrance,-2,10,-1,-1
+
 room1,10,-2,20,-1
+
 room2,-1,20,-2,50
+
 exit,-1,-1,50,-2
 
 Restrictions:
