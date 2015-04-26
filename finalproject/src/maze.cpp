@@ -593,11 +593,12 @@ void maze::addRoom()
 
 void maze::printRooms()
 {
+    cout << "- Room - " << " - Connected Room - " << " - Chance of falling into trap - " << endl;
     for(int i = 0; i < vertices.size(); i++)
         {
             for(int j = 0; j < vertices[i].adj.size(); j++)
             {
-                cout << vertices[i].name << " : " << vertices[i].adj[j].v->name << " : " << vertices[i].adj[j].risk << endl;
+                cout << vertices[i].name << " -> " << vertices[i].adj[j].v->name << " : " << vertices[i].adj[j].risk << "%" << endl;
             }
         }
 }
