@@ -7,6 +7,7 @@ struct vertex;
 
 struct adjVertex{
     vertex *v;
+    //Chance of falling into a trap when traveling room to room.
     int risk;
 };
 
@@ -50,7 +51,7 @@ class maze
     private:
         //Flag to determine if the maze was created successfully.
         bool mazeSet = false;
-        //vector<edge> edges;
+        //Holds entire maze data.
         std::vector<vertex> vertices;
 
 };
