@@ -50,4 +50,4 @@ N/A
 
 --Known bugs---
 
-None.
+1. When a user enters a string after being asked for a numerical input, the program gets stuck in a loop.
