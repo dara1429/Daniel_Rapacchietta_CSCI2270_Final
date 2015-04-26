@@ -17,7 +17,7 @@ followed by comma separated integer values between 0 and 50 for connected rooms.
 3. Any two rooms that are not connected must be represented by a -1 in the maze.txt file.
 
 
-4. There must be a -2 value when putting in the risk value for the same two rooms.
+4. There must be a value of -2 for the connection between the same two rooms in the maze.txt file.
 
 5. There must be a room called "Entrance" and "Exit" (can be lowercase). These are used for the starting room for the player and the destination room to win the game. You should entrance as the first room and exit as the last when making the text file but it is not necessary.
 
