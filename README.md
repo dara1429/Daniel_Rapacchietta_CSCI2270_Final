@@ -6,7 +6,12 @@ This program will offer users to edit and play a labyrinth game. The program wil
 
 ---How to Run---
 
-A "maze.txt" file is required to run the program (as argument 1). The structure is similar to the graph assignment.
+1.	Compile main.cpp (Driver) with maze.cpp/maze.h/player.cpp/player.h
+
+
+2.	Run with argument[1] as “maze.txt”.
+
+---Requirements---
 
 1. The first line of the maze.txt file must have "rooms" followed by comma separated room names.
 
