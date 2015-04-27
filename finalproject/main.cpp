@@ -102,7 +102,7 @@ int main(int argc, char* argv[])
         cout << "4. Add room" << endl;
         cout << "5. Add door/key" << endl;
         cout << "6. Find shortest path" << endl;
-        cout << "7. Find path with the least risk" << endl;
+        cout << "7. Find safest path" << endl;
         cout << "8. Print entire maze" << endl;
         cout << "9. Quit" << endl;
 

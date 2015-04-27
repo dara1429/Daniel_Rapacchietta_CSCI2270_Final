@@ -142,6 +142,7 @@ void maze::addEdge(string room1, string room2, int risk, int option)
 
 void maze::mazeErrorCheck()
 {
+    //Initializes errorCheck.
     int errorCheck = 1;
     string startingRoom;
     for(int i = 0; i < vertices.size(); i++)
@@ -157,7 +158,7 @@ void maze::mazeErrorCheck()
 
 void maze::mazeErrorCheckBFT(string startingRoom, int errorCheck)
 {
-    //Initialize node
+    //Room is assigned an errorCheck number. If its disconnected from the rest of the graph. will return with -1 errorCheck.
     vertex v;
     for(int i = 0; i < vertices.size(); i++)
     {
@@ -339,7 +340,7 @@ void maze::findShortestPath()
         }
     }
 
-    //Initialize cities
+    //Initialize rooms
     for(int i = 0; i < vertices.size(); i++)
     {
         vertices[i].visited = false;
@@ -425,8 +426,10 @@ void maze::findShortestPath()
 
 void maze::addDoorAndKey()
 {
+    //string room is the room the user wants to put a door/key in.
     string room;
     bool roomFound = false;
+    //booleans used to check if the rooms the user inputted already have a door/key
     bool flag1 = false;
     bool flag2 = false;
     cout << "Enter the name of the room you want to put a door in :" << endl;
@@ -463,6 +466,7 @@ void maze::addDoorAndKey()
             cout << "Room not found! Please try again" << endl;
         }
     }
+    //Resets roomFound boolean and now string room is the room the user wants to put a key in.
     roomFound = false;
     cout << "Now enter the name of the room you want to put a key in :" << endl;
     while(roomFound == false)
@@ -501,10 +505,15 @@ void maze::addDoorAndKey()
 
 void maze::addRoom()
 {
+    //String room1 is the new room to be added.
     string room1;
+    //String room2 are the rooms the user connects to room1.
     string room2;
+    //risk holds the risk value going from room1 to room2.
     int risk;
+    //True when room1 is successfully added.
     bool roomOk = false;
+    //error flags set to true if room1 already exists or is another exit,entrance.
     bool flag1 = false;
     bool flag2 = false;
     cout << "Please enter the name of the room you want to add to the maze :" << endl;
@@ -532,7 +541,9 @@ void maze::addRoom()
             roomOk = true;
         }
     }
+    //Now asks user to input a room to connect to room1.
     string doneConnecting = "y";
+    //While the user is not done adding connections.
     while(doneConnecting == "y")
     {
         cout << "Please enter the name of a room you want to connect it to :" << endl;
@@ -575,7 +586,7 @@ void maze::addRoom()
             cout << "You entered an invalid value (Range is 0 to 50). Please try again." << endl;
             cin >> risk;
         }
-        //Sends variables to functions to add to maze.
+        //Sends the room1 and 2 strings to appropriate functions to add to the maze.
         addVertex(room1);
         int newID = vertices.size()+1;
         for(int i = 0; i < vertices.size(); i++)
