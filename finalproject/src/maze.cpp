@@ -16,6 +16,7 @@ maze::~maze()
 
 bool maze::createMaze(vector<string> rooms, vector< vector<int> > connections)
 {
+    // These strings are used for creating the edges.
     string startingRoom;
     string connectedRoom;
     int counter = 0;
@@ -23,7 +24,7 @@ bool maze::createMaze(vector<string> rooms, vector< vector<int> > connections)
     int option = 0;
 
     //Creates Vertexes
-    for(int i = 0; i < rooms.size(); i++)
+    for(int i = 0; i < rooms.size()-1; i++)
     {
         addVertex(rooms[i]);
     }
@@ -32,7 +33,7 @@ bool maze::createMaze(vector<string> rooms, vector< vector<int> > connections)
     while(counter < rooms.size())
     {
         startingRoom = rooms[counter];
-        for(int i = 0; i < rooms.size(); i++)
+        for(int i = 0; i < rooms.size()-1; i++)
         {
             connectedRoom = rooms[i];
             risk = connections[counter][i];
@@ -43,6 +44,7 @@ bool maze::createMaze(vector<string> rooms, vector< vector<int> > connections)
         }
         counter++;
     }
+
     //Assign room ID's
     int id = 1;
     for(int i = 0; i < vertices.size(); i++)
@@ -114,7 +116,7 @@ void maze::addVertex(string room)
 
 void maze::addEdge(string room1, string room2, int risk, int option)
 {
-
+    //cout << "Adding " << room1 << " " << room2 << endl;
     for(int i = 0; i < vertices.size(); i++){
         if(vertices[i].name == room1){
             for(int j = 0; j < vertices.size(); j++){
@@ -140,20 +142,20 @@ void maze::addEdge(string room1, string room2, int risk, int option)
 
 void maze::mazeErrorCheck()
 {
-    int id = 1;
+    int errorCheck = 1;
     string startingRoom;
     for(int i = 0; i < vertices.size(); i++)
     {
         if(vertices[i].mazeCheck == -1)
         {
             startingRoom = vertices[i].name;
-            mazeErrorCheckBFT(startingRoom,id);
-            id++;
+            mazeErrorCheckBFT(startingRoom,errorCheck);
+            errorCheck++;
         }
     }
 }
 
-void maze::mazeErrorCheckBFT(string startingRoom, int id)
+void maze::mazeErrorCheckBFT(string startingRoom, int errorCheck)
 {
     //Initialize node
     vertex v;
@@ -162,15 +164,15 @@ void maze::mazeErrorCheckBFT(string startingRoom, int id)
         if(vertices[i].name == startingRoom)
         {
             v = vertices[i];
-            //Mark city as visited.
+            //Mark room as visited.
             vertices[i].visited = true;
-            vertices[i].mazeCheck = id;
+            vertices[i].mazeCheck = errorCheck;
         }
     }
     //Create queue for BFS
     queue<vertex> q;
 
-    //Add starting city to queue.
+    //Add starting room to queue.
     q.push(v);
 
     while(!q.empty())
@@ -183,7 +185,7 @@ void maze::mazeErrorCheckBFT(string startingRoom, int id)
             if(v.adj[i].v->visited == false)
             {
                 v.adj[i].v->visited = true;
-                v.adj[i].v->mazeCheck = id;
+                v.adj[i].v->mazeCheck = errorCheck;
                 q.push(*v.adj[i].v);
             }
         }

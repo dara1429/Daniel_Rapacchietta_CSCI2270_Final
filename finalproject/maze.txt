@@ -1,4 +1,4 @@
-rooms,entrance,hallway,balcony,ballroom,kitchen,observatory,basement,woods,passage,exit
+rooms,entrance,hallway,balcony,ballroom,kitchen,observatory,basement,woods,passage,exit,
 entrance,-2,40,30,20,-1,-1,-1,-1,-1,-1
 hallway,40,-2,-1,-1,35,-1,-1,-1,-1,-1
 balcony,30,-1,-2,-1,-1,15,-2,-1,-1,-1

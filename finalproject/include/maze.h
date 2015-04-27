@@ -13,7 +13,9 @@ struct adjVertex{
 
 
 struct vertex{
+    //Room name.
     std::string name;
+    //This vector holds all the connected rooms for a particular room.
     std::vector<adjVertex> adj;
     bool visited = false;
     //This int will check the graph after its created to check for unconnected rooms.
@@ -36,8 +38,8 @@ class maze
         maze();
         ~maze();
         bool createMaze(std::vector<std::string> rooms, std::vector< std::vector<int> > connections);
-        void addEdge(std::string room1, std::string room2, int risk, int option);
         void addVertex(std::string name);
+        void addEdge(std::string room1, std::string room2, int risk, int option);
         void displayEdges();
         void mazeErrorCheck();
         void mazeErrorCheckBFT(std::string startingRoom, int id);

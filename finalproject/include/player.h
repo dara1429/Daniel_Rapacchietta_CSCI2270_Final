@@ -18,8 +18,10 @@ class player
         void setKeys(int numKeys);
     protected:
     private:
+        //Player's keys and lives.
         int keys = 0;
         int lives = 3;
+        //These vectors are used to display the current choices and risks while in any room in the maze.
         std::vector<vertex> currentOptions;
         std::vector<int> currentRisks;
         vertex *currentRoom;
