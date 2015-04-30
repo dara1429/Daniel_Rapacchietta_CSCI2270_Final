@@ -6,10 +6,13 @@ This program will offer users to edit and play a labyrinth game. The program wil
 
 ---How to Run---
 
-1.	Compile main.cpp (Driver) with maze.cpp/maze.h/player.cpp/player.h
+1.	Download repo files all to the same folder.
 
+2.	Open a terminal in that folder.
 
-2.	Run with argument[1] as “maze.txt”.
+3. Make the program with command: make
+
+4. Run the program with command: ./mazegame maze.txt
 
 ---Requirements---
 
