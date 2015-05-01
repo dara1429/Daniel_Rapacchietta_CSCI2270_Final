@@ -7,5 +7,8 @@ main.o: main.cpp maze.h player.h
 maze.o: maze.cpp maze.h
 	g++ -c -std=gnu++11 maze.cpp
 
+player.o: player.cpp player.h
+	g++ -c -std=gnu++11 player.cpp
+
 clean:
 	rm *.o mazegame

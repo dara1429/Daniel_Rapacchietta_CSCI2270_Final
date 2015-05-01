@@ -15,7 +15,12 @@ int main(int argc, char* argv[])
     string filename = argv[1];
     ifstream infile;
     infile.open(filename.c_str());
-
+    //Checking to see if file was opened.
+    if(infile.fail())
+    {
+        cout << "Error opening file!" << endl;
+        return 0;
+    }
     //Creates the vector to hold room names.
     vector<string> rooms;
     //Counter to find the number of rooms in the text file.
